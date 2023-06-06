@@ -23,21 +23,29 @@
                     </div>
 
                     <table class="w-full bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <!-- Table headers -->
                         <thead>
                         <tr>
                             <th class="py-2 px-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold text-left">Name</th>
                             <th class="py-2 px-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold text-left">Email</th>
                             <th class="py-2 px-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold text-left">Role</th>
+                            <th class="py-2 px-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold text-left">Actions</th>
                         </tr>
                         </thead>
-                        <!-- Table data -->
                         <tbody>
                         @foreach($accounts as $account)
                             <tr>
                                 <td class="py-2 px-4 border-b dark:border-gray-700">{{ $account->name }}</td>
                                 <td class="py-2 px-4 border-b dark:border-gray-700">{{ $account->email }}</td>
                                 <td class="py-2 px-4 border-b dark:border-gray-700">{{ $account->role }}</td>
+                                <td class="py-2 px-4 border-b dark:border-gray-700">
+                                    <a href="{{ route('account.edit', $account->id) }}"
+                                       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                                    <form action="{{ route('account.delete', $account->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="return confirm('Are you sure you want to delete this account?')">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

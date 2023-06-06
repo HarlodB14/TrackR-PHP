@@ -8,27 +8,18 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a list of roles.
-     */
     public function index()
     {
         $roles = Role::all();
         return view('roles.index', compact('roles'));
     }
 
-    /**
-     * Show the form for creating a new role.
-     */
     public function create()
     {
         $permissions = Permission::all();
         return view('roles.create', compact('permissions'));
     }
 
-    /**
-     * Store a newly created role in the database.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -45,18 +36,12 @@ class RoleController extends Controller
         return redirect()->route('roles.index')->with('success', 'Role created successfully');
     }
 
-    /**
-     * Show the form for editing the specified role.
-     */
     public function edit(Role $role)
     {
         $permissions = Permission::all();
         return view('roles.edit', compact('role', 'permissions'));
     }
 
-    /**
-     * Update the specified role in the database.
-     */
     public function update(Request $request, Role $role)
     {
         $data = $request->validate([
@@ -74,9 +59,6 @@ class RoleController extends Controller
         return redirect()->route('roles.index')->with('success', 'Role updated successfully');
     }
 
-    /**
-     * Remove the specified role from the database.
-     */
     public function destroy(Role $role)
     {
         $role->delete();

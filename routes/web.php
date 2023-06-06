@@ -28,9 +28,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::get('/trackrAccounts', [AccountController::class, 'showAccounts'])->name('show-accounts');
     Route::get('/trackrAccounts/create', [AccountController::class, 'createAccount'])->name('create-account');
-    Route::post('/trackrAccounts/create', [AccountController::class, 'store'])->name('account.store');
-});
+    Route::post('/trackrAccounts', [AccountController::class, 'store'])->name('account.store');
+    Route::get('/trackrAccounts/{user}/edit', [AccountController::class, 'editAccount'])->name('account.edit');
+    Route::put('/trackrAccounts/{user}', [AccountController::class, 'updateAccount'])->name('account.update');
+    Route::delete('/trackrAccounts/{user}', [AccountController::class, 'deleteAccount'])->name('account.delete');
 
-require __DIR__ . '/auth.php';
+});
+    require __DIR__ . '/auth.php';
