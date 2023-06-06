@@ -5,22 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AccountController extends Controller
 {
-
     public function showAccounts()
     {
         $accounts = User::all();
 
         return view('trackrAccounts', compact('accounts'));
-
     }
 
     public function createAccount()
     {
         return view('createNewAccount');
-
     }
 
     public function store(Request $request)
@@ -32,11 +30,8 @@ class AccountController extends Controller
         ]);
 
         $account['password'] = Hash::make($account['password']);
-
-        User::create($account);
+        User::creating($account);
 
         return redirect()->route('show-accounts')->with('success', 'Account created successfully');
     }
-
-
 }
