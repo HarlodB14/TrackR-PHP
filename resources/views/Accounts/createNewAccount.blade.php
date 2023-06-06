@@ -41,6 +41,16 @@
                                    class="border border-gray-300 dark:border-gray-700 rounded-md p-2 text-black"
                                    required>
                         </div>
+                        <div class="mb-4">
+                            <label for="role" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">
+                                Role:
+                            </label>
+                            <select name="role" id="role" class="border border-gray-300 dark:border-gray-700 rounded-md p-2 text-black" required>
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="flex sm:justify-start">
                             <button type="submit"
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

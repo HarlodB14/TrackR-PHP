@@ -18,7 +18,8 @@ class AccountController extends Controller
 
     public function createAccount()
     {
-        return view('createNewAccount');
+        $roles = Role::all();
+        return view('createNewAccount', compact('roles'));
     }
 
     public function store(Request $request)
@@ -27,10 +28,14 @@ class AccountController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:4',
+            'role' => 'required|exists:roles,name',
         ]);
 
         $account['password'] = Hash::make($account['password']);
-        User::creating($account);
+        $user = User::create($account);
+        $roleName = $request->input('role');
+        $role = Role::where('name', $roleName)->first();
+        $user->assignRole($role);
 
         return redirect()->route('show-accounts')->with('success', 'Account created successfully');
     }
